@@ -6,6 +6,7 @@ td {
 }
 .container {
   padding: 20px;
+  flex-direction: row-reverse;
 }
 .header-page{
     margin-top: -10px;
@@ -16,4 +17,8 @@ td {
     background-color:rgb(47, 47, 143) ;
     color: cornsilk;
 
+}
+.graf{
+  float: right;
+  
 }
