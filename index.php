@@ -1,10 +1,6 @@
+
 <?php
-require_once("./src/controllers/employeeController.php");
-
-$product1 = new EmployeeController();
-$list = $product1->getEmployees();
-foreach($list as $o){
-    print ($o['name']);
-}
-
+define('ROOT_PATH', dirname(__FILE__));
+require_once ('./src/config/connections.php');
+require_once ("./src/views/home.php");
 ?>

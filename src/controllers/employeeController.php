@@ -1,18 +1,21 @@
 <?php
-include_once('../config/connections.php');
-require_once('../models/employee.php');
+require_once (ROOT_PATH . '/src/models/employee.php');
 class EmployeeController
 {
+    private $conn;
+    function __construct($conn){
+        $this->conn = $conn;
+    }
     function getEmployees (){
-        $result = mysql_query('SELECT emp.* FROM employees emp ORDER BY emp.name asc');
+        $result = mysqli_query($this->conn, 'SELECT emp.* FROM employees emp ORDER BY emp.name asc');
         $list = [];
         if (!$result) {
-            die('Invalid query: ' . mysql_error());
+            die('Invalid query: ' . mysqli_error());
         }
-        while ($row = mysql_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $employee = new Employee(
                 $row['id'],
-                $row['nome'],
+                $row['name'],
                 $row['phone'],
                 $row['company'],
                 $row['email'],
@@ -22,9 +25,82 @@ class EmployeeController
                 $row['updated']
             );
             
-            array_push($list, );
+            array_push($list, $employee);
         }
         return $list;
+    }
+    /**
+     * $id = Identify Object
+     */
+    function deleteEmployees ($id){
+        $sql = "DELETE FROM employees WHERE id =".$id;
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            return "Error";
+        }
+        return "OK";
+    }
+    /**
+     * $id = Identify Object
+     */
+    function findEmployees ($id){
+        $sql = "SELECT * FROM employees WHERE id =".$id;
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            return "Error";
+        }
+        $row = mysqli_fetch_assoc($result);
+        $employee = new Employee(
+            $row['id'],
+            $row['name'],
+            $row['phone'],
+            $row['company'],
+            $row['email'],
+            $row['sector'],
+            $row['role'],
+            $row['created'],
+            $row['updated']
+        );
+        return $employee;
+    }
+    /**
+     * $employee = Object
+     */
+    function saveEmployees ($employee){
+        $sql = $this->prepareField($employee, $employee->id ? 2 : 1);
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            return "Error";
+        }
+        return "OK";
+    }
+    /**
+     * $employee = Object
+     * $type = (1)- Insert or (2) update 
+     */
+    private function prepareField($employee, $type){
+            if($type == 1){
+                return "INSERT INTO employees SET ".
+                    "name=".$employee->name.", ".
+                    "phone=".$employee->phone.", ".
+                    "company=".$employee->company.", ".
+                    "email=".$employee->email.", ".
+                    "sector=".$employee->sector.", ". 
+                    "role=".$employee->role.", ".
+                    "created=". date("Y-m-d H:i:s").", ".
+                    "updated=".date("Y-m-d H:i:s");
+            }else{
+                return "UPDATE  employees SET ".
+                    "name=".$employee->name.", ".
+                    "phone=".$employee->phone.", ".
+                    "company=".$employee->company.", ".
+                    "email=".$employee->email.", ".
+                    "sector=".$employee->sector.", ".
+                    "role=".$employee->role.", ".
+                    "updated=".date("Y-m-d H:i:s").
+                    "WHERE id =".$employee->id;
+            }
+            
     }
 }
 ?>

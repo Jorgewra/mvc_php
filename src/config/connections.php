@@ -1,14 +1,14 @@
 <?php
-$localhost = "127.0.0.1";
-$username = "root";
-$password = "123";
+$localhost = "";
+$username = "digi_db";
+$password = "";
 $database = "digi_db";
-
+global $conn;
 // Create connection
-$conn = mysqli_connect($localhost, $username, $password,$database);
+$conn = mysqli_connect($localhost, $username, $password, $database,41890);
 
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-?>
+

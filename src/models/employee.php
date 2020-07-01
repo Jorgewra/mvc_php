@@ -14,12 +14,18 @@ class Employee extends Person
         $this->name = $name;
         $this->phone = $phone;
         $this->company = $company;
-        $this->company = $email;
+        $this->email = $email;
         $this->sector = $sector;
         $this->role = $role;
         $this->created = $created;
         $this->updated = $updated;
-
+    }
+    public function toString(){
+        return "name=".$this->name.",".
+               "phone=".$this->phone.",".
+               "company=".$this->company.",".
+               "email=".$this->email.",".
+               "sector=".$this->sector.",";
     }
 }
 ?>
