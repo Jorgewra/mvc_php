@@ -10,7 +10,8 @@ $list_graf = [];
  * Id para excluir dados
  */
 if(isset($_GET["id"])){
-  $api->deleteEmployees($_GET["id"]);
+  $resp = $api->deleteEmployees($_GET["id"]);
+  echo json_decode($resp);
   $list = $api->getEmployees();
 }
 /** 
@@ -126,7 +127,7 @@ if(is_array($list)){
                           echo "  <td>$o->sector</td>";
                           echo "  <td>$o->role</td>";
                           echo "  <td><a href='/src/views/formEmployee.php?id=$o->id'>edit</a></td>";
-                          echo "  <td><a href='/?id=$o->id&type=DELETE'>delete</a></td>";
+                          echo "  <td><a href='/src/views/home.php?id=$o->id&type=DELETE'>delete</a></td>";
                           echo "</tr>";
                         }
                       ?>

@@ -36,9 +36,9 @@ class EmployeeController
         $sql = "DELETE FROM employees WHERE id =".$id;
         $result = mysqli_query($this->conn, $sql);
         if (!$result) {
-            return "Error";
+            return $result;
         }
-        return "OK";
+        return $sql;
     }
     /**
      * $id = Identify Object
