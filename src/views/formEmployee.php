@@ -1,5 +1,4 @@
 <?php
-define('ROOT_PATH',"/opt/lampp/htdocs");
 require_once ('../config/connections.php');
 require_once ("../controllers/employeeController.php");
 require_once ("../models/employee.php");

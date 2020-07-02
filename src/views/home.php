@@ -1,5 +1,7 @@
 <?php
-require_once (ROOT_PATH ."/src/controllers/employeeController.php");
+define('ROOT_PATH', dirname(__FILE__));
+require_once ('../config/connections.php');
+require_once ("../controllers/employeeController.php");
 $api = new EmployeeController($conn);
 $list = $api->getEmployees();
 $list_aux = [];
@@ -88,7 +90,7 @@ if(is_array($list)){
             <form method="GET" action="?type=search">
                 <select name="keywords">
                     <option value="name">Nome</option>
-                    <option value="phone">Telefone,</option>
+                    <option value="phone">Telefone</option>
                     <option value="company">Empresa</option>
                     <option value="sector">Setor</option>
                     <option value="email">E-mail</option>

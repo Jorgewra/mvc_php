@@ -1,5 +1,5 @@
 <?php
-require_once (ROOT_PATH . '/src/models/employee.php');
+require_once ('../models/employee.php');
 class EmployeeController
 {
     private $conn;
